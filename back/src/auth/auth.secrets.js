@@ -1,4 +1,3 @@
 
 
-
-export const jwt_secret = 'BOOTCAMP_AUTH';
+export const jwt_secret = 'DISCORD_AUTH'

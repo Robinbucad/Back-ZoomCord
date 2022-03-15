@@ -1,39 +1,37 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient } from 'mongodb'
 
+const URI = 'mongodb+srv://robin:1122loco@discord.3po3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
-const URI = 'mongodb+srv://robin:1122loco@discord.3po3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 const client = new MongoClient(URI);
-const DATABASE_NAME = 'Discord';
-const COLLECTION_NAME = 'users';
+const DATABASE_NAME = 'social';
+const COLLECTION_NAME = 'users'
 
 export const createUser = async (user) => {
     try {
-        await client.connect();
-        const db = client.db(DATABASE_NAME);
-        const users = db.collection(COLLECTION_NAME);
+        await client.connect()
+        const db = client.db(DATABASE_NAME)
+        const users = db.collection(COLLECTION_NAME)
         return await users.insertOne(user);
     } catch (err) {
-        console.error(err);
+        console.error(err)
     } finally {
-        client.close();
+        client.close()
     }
 }
 
-// devuelve el usuario sin tener en cuenta el status o null si no existe
-export const getUserByEmailNoStatus = async (email) => {
+export const getUserbyEmailNoStatus = async (email) => { //DADO UN EMAIL ME DEVUELVE EL USUARIO AUNQUE NO ESTE VERIFICADO (STATUS)
     try {
-        await client.connect();
-        const db = client.db(DATABASE_NAME);
-        const users = db.collection(COLLECTION_NAME);
+        await client.connect()
+        const db = client.db(DATABASE_NAME)
+        const users = db.collection(COLLECTION_NAME)
         return await users.findOne({ email });
     } catch (err) {
-        console.error(err);
+        console.error(err)
     } finally {
-        client.close();
+        client.close()
     }
 }
 
-// actualiza el usuario cambiando su estaso a success
 export const validateUser = async (email) => {
     try {
         await client.connect();
@@ -53,9 +51,9 @@ export const validateUser = async (email) => {
     }
 }
 
-// devuelve el usuario de BBDDD que esté en estado succes y además coincida
-// con el email y con password que me mandan. 
-export const retrieveSuccessUserByEmailAndPassword = async (email, password) => {
+
+// devuelve el usuario de BBDD que este en estado succes y ademas coincia con el email y con el password que me mandan
+export const retrieveSuccessByEmailAndPassword = async (email, password) => {
     try {
         await client.connect();
         const db = client.db(DATABASE_NAME);
@@ -73,21 +71,17 @@ export const retrieveSuccessUserByEmailAndPassword = async (email, password) => 
     }
 }
 
-
 export const retrieveUserInfoByEmail = async (email) => {
     try {
         await client.connect();
         const db = client.db(DATABASE_NAME);
         const users = db.collection(COLLECTION_NAME);
-        const query = { email };
-        const options = { projection: { _id: 0, password: 0, status: 0 } }
-        return await users.findOne(query, options);
+        const query = { email }
+        const options = {projection: {_id:0,password:0}} //CON PROJECTION ELIGES LO QUE NO QUIERES TRAER
+        return await users.findOne(query,options);
     } catch (err) {
         console.error(err);
     } finally {
         client.close();
     }
 }
-
-
-

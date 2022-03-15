@@ -1,16 +1,14 @@
-import express from 'express';
-import { registerCtrl, validateEmailCtrl, loginCtrl } from './auth.controller.js';
-import { validateUser } from './auth.middleware.js';
 
-const router = express.Router();
+import express from "express";
+import { loginCtrl, registerCtrl, validateEmailCtrl } from "./auth.controller.js";
+import { validateUser } from "./auth.middleware.js";
 
-// enpoint par el registro del usuario
-router.post('/register', validateUser, registerCtrl);
+const router = express.Router()
 
-// enpoint par la validación del email del usuario
-router.get('/validate', validateEmailCtrl);
+router.post('/register',validateUser,registerCtrl )
 
-// enpoint par el login del usuario
-router.post('/login', loginCtrl);
+router.get('/validate', validateEmailCtrl)
 
-export default router;
+router.post('/login', loginCtrl)
+
+export default router

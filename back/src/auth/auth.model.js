@@ -1,51 +1,54 @@
-import {MongoClient} from 'mongodb';
+import {MongoClient} from 'mongodb'
 
+const URI = 'mongodb+srv://robin:1122loco@discord.3po3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
-const URI = 'mongodb+srv://robin:1122loco@discord.3po3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 const client = new MongoClient(URI);
-const DATABASE_NAME = 'Discord';
-const COLLECTION_NAME = 'validate-token';
+const DATABASE_NAME = 'social';
+const COLLECTION_NAME = 'validate-token'
 
-export const createValidationToken = async (token, userName) => {
+export const createValidationToken = async(token,userName) => {
     try{
-        await client.connect();
-        const db = client.db(DATABASE_NAME);
-        const tokens = db.collection(COLLECTION_NAME);
-        return await tokens.insertOne({ // asociamos el token al usuario en la BBDD
+        await client.connect()
+        const db = client.db(DATABASE_NAME)
+        const tokens = db.collection(COLLECTION_NAME)
+        return await tokens.insertOne({
             token,
-            user: userName
+            user:userName
         });
     }catch(err){
-        console.error(err);
+        console.error(err)
     }finally{
-        client.close();
+        client.close()
     }
 }
 
-// devuelve el token o null si no existe
-export const retrieveValidationToken = async (token) => {
+// esto devuelve el token o null si este no existe 
+
+export const retrieveValidationToken = async(token) => {
     try{
-        await client.connect();
-        const db = client.db(DATABASE_NAME);
-        const tokens = db.collection(COLLECTION_NAME);
+        await client.connect()
+        const db = client.db(DATABASE_NAME)
+        const tokens = db.collection(COLLECTION_NAME)
         return await tokens.findOne({token});
     }catch(err){
-        console.error(err);
+        console.error(err)
     }finally{
-        client.close();
+        client.close()
     }
 }
 
 // borra el token de la BBDD
-export const deleteValidationToken = async (token) => {
+
+export const deleteValidationToken = async(token) => {
     try{
-        await client.connect();
-        const db = client.db(DATABASE_NAME);
-        const tokens = db.collection(COLLECTION_NAME);
+        await client.connect()
+        const db = client.db(DATABASE_NAME)
+        const tokens = db.collection(COLLECTION_NAME)
         return await tokens.deleteOne({token});
     }catch(err){
-        console.error(err);
+        console.error(err)
     }finally{
-        client.close();
+        client.close()
     }
 }
+
