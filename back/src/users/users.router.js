@@ -1,15 +1,10 @@
-import express from "express"
-import { createUserCtrl, deleteUserCtrl, getUserByIdCtrl, getUserCtrl } from "./users.controller.js"
+import express from 'express';
+import { getUserInfo } from './users.controller.js';
 
-
-const router = express.Router()
+const router = express.Router();
 
 router.route('/')
-    .get(getUserCtrl)
-    .post(createUserCtrl)
+    .get(getUserInfo)
 
-router.route('/:id')
-    .get(getUserByIdCtrl)
-    .delete(deleteUserCtrl)
 
-export default router
+export default router;
