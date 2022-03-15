@@ -17,6 +17,7 @@
     "mongoose": "^6.2.6",
     "nodemon": "^2.0.15",
     "route-node": "^4.1.1",
+    "socket.io": "^4.4.1",
     "uuid": "^8.3.2"
   }
 }
