@@ -26,9 +26,22 @@ io.on('connection',(socket) => {// connection es un evento de socket
 
     socket.on("send_message", data => {
         console.log(data)
-        io.emit("receive_message",data)
+        io.emit("send_message",data)
         console.log(data.room)
     })
+
+
+    socket.on('setup',(userData)=> {
+        socket.join(userData)
+        console.log(userData)
+        socket.emit('connected')
+    })
+
+    socket.on("join_room",room => {
+        socket.join(room)
+        console.log(`join room ${room}`)
+    })
+
 
     socket.on('disconnect', () => {
         console.log('User disconnected', socket.id)
