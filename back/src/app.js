@@ -13,7 +13,7 @@ const port = 3001
 const server = http.createServer(app)
 app.use(cors())
 
-/*
+
 const io = new Server(server, {
     cors:{ // Llamo donde voy a abrir la aplicaion para que no salte cords
         origin:"http://localhost:3000",
@@ -35,7 +35,7 @@ io.on('connection',(socket) => {// connection es un evento de socket
     })
 }) 
 
-*/
+
 
 app.use(express.json())
 app.use(express.urlencoded({extended:'utf-8'}))

@@ -1,5 +1,5 @@
 
-import {retrieveUserInfoByEmail} from './users.model.js'
+import {retrieveUserInfoByEmail, retrieveUsers} from './users.model.js'
 
 export const getUserInfo = async (req,res) => {
     //obtener el email --> Lo tengo que obtener del token
@@ -12,3 +12,10 @@ export const getUserInfo = async (req,res) => {
       res.sendStatus(500)
   }
 }
+
+export const getFriendListCtlr = async (req,res) => {
+        const users = await retrieveUsers()
+   
+        res.json(users)
+
+} 

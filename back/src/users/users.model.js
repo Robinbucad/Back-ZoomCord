@@ -77,11 +77,29 @@ export const retrieveUserInfoByEmail = async (email) => {
         const db = client.db(DATABASE_NAME);
         const users = db.collection(COLLECTION_NAME);
         const query = { email }
-        const options = {projection: {_id:0,password:0}} //CON PROJECTION ELIGES LO QUE NO QUIERES TRAER
+        const options = {projection: {password:0}} //CON PROJECTION ELIGES LO QUE NO QUIERES TRAER
         return await users.findOne(query,options);
     } catch (err) {
         console.error(err);
     } finally {
         client.close();
+    }
+}
+
+
+export const retrieveUsers = async() => {
+    try{
+        await client.connect()
+        const db = client.db(DATABASE_NAME);
+        const usersCol = db.collection(COLLECTION_NAME);
+        const opt = {
+            projection:{password:0}
+        }
+        const users = usersCol.find({}, opt).toArray()
+        return await users
+    }catch(err){
+        console.error('Retrieve users err:', err)
+    }finally{
+        await client.close()
     }
 }
