@@ -1,4 +1,4 @@
-import { createMsg } from "./message.model.js"
+import { createMsg, retrieveMsg } from "./message.model.js"
 
 
 export const messageCtrl = async(req,res) => {
@@ -10,4 +10,13 @@ export const messageCtrl = async(req,res) => {
         console.log(message)
         await createMsg(message)
         res.status(201).json(message)
+}
+
+export const conversationCtrl = async(req,res) => {
+        const {conversationId} = req.params
+        const messages = await retrieveMsg(conversationId)
+        console.log(messages)
+        res.json(messages)
+     
+
 }

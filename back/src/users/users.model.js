@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb'
+import { MongoClient, ObjectId } from 'mongodb'
 
 const URI = 'mongodb+srv://robin:1122loco@discord.3po3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
@@ -91,15 +91,38 @@ export const retrieveUsers = async() => {
     try{
         await client.connect()
         const db = client.db(DATABASE_NAME);
-        const usersCol = db.collection(COLLECTION_NAME);
+        const usersCol =  db.collection(COLLECTION_NAME);
         const opt = {
             projection:{password:0}
         }
-        const users = usersCol.find({}, opt).toArray()
-        return await users
+        
+        const users =await usersCol.find({}, opt).toArray()
+        console.log(users)
+        return  users
     }catch(err){
         console.error('Retrieve users err:', err)
     }finally{
-        await client.close()
+       await client.close()
     }
 }
+
+export const retreiveUsersById = async (id) => {
+    try{
+        await client.connect(); 
+        const db = client.db(DATABASE_NAME); 
+        const userCol = db.collection(COLLECTION_NAME);
+        const opt = {
+            projection: { status:0 }
+        }
+        const query = { 
+            _id:ObjectId(id)
+           }
+
+        const user = await userCol.findOne(query, opt); 
+        return user ?? undefined;
+    }catch(err){
+        console.error('Retrieve users error: ', err);
+    }finally {
+        client.close(); 
+    }
+};

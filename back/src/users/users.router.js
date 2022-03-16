@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUserInfo, getFriendListCtlr } from './users.controller.js';
+import { getUserInfo, getFriendListCtlr, getUserByIdCtrl } from './users.controller.js';
 
 
 const router = express.Router();
@@ -9,5 +9,10 @@ router.route('/')
 
 router.route('/friends')
     .get(getFriendListCtlr)
+
+
+router.route('/:id')
+    .get(getUserByIdCtrl)
+    
 
 export default router;

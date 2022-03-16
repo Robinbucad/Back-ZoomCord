@@ -19,3 +19,21 @@ export const createConv = async (chat) => {
         await client.close(); 
     }
 }
+
+
+
+export const retrieveConv = async () => {
+    try{
+        await client.connect(); 
+        const db = client.db(DATABASE_NAME); 
+        const convs = db.collection(COLLECTION_NAME);
+     
+        const conversations = await convs.find({}, ).toArray(); 
+        return  conversations;
+    }catch(err){
+        console.error('Retrieve Conversation error: ', err);
+    }finally {
+        await client.close(); 
+    }
+};
+
