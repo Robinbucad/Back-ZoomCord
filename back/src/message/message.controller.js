@@ -3,8 +3,10 @@ import { createMsg, retrieveMsg } from "./message.model.js"
 
 export const messageCtrl = async(req,res) => {
         const message = {
-           ...req.body
+           ...req.body,
+           
         }
+    
 
 
         console.log(message)

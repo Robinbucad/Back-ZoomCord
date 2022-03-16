@@ -71,6 +71,8 @@ export const retrieveSuccessByEmailAndPassword = async (email, password) => {
     }
 }
 
+
+
 export const retrieveUserInfoByEmail = async (email) => {
     try {
         await client.connect();
@@ -85,6 +87,8 @@ export const retrieveUserInfoByEmail = async (email) => {
         client.close();
     }
 }
+
+// Modelo que recupera los usuarios
 
 
 export const retrieveUsers = async() => {

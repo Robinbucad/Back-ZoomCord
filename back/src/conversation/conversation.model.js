@@ -4,7 +4,9 @@ const URI = 'mongodb+srv://robin:1122loco@discord.3po3g.mongodb.net/myFirstDatab
 
 const client = new MongoClient(URI);
 const DATABASE_NAME = 'social';
-const COLLECTION_NAME = 'chat'
+const COLLECTION_NAME = 'chat';
+
+// Modelo que crea un conversacion de usuarioa usuario con un post a /conversation
 
 export const createConv = async (chat) => {
     try{
@@ -20,7 +22,7 @@ export const createConv = async (chat) => {
     }
 }
 
-
+//Recupero la conversacion que contiene los dos miembros que se comunican
 
 export const retrieveConv = async () => {
     try{

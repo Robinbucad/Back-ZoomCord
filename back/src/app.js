@@ -55,8 +55,8 @@ app.use(express.urlencoded({extended:'utf-8'}))
 
 app.use('/auth', authRouter);
 app.use('/users', validateAuth, userRouter)
-app.use('/conversation', conversationRouter)
- app.use('/message', messagesRouter)
+app.use('/conversation',validateAuth, conversationRouter)
+ app.use('/message',validateAuth, messagesRouter)
 
 // HACEMOS PRIMERO REGISTER(POST), VALIDATE(GET), LOGIN(POST), GET USERS(GET)
 

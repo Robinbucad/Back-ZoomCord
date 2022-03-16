@@ -13,12 +13,17 @@ export const getUserInfo = async (req,res) => {
   }
 }
 
+
+//Controlador que da la lista de usuarios de la aplicacion
+
 export const getFriendListCtlr = async (req,res) => {
         const users = await retrieveUsers()
         console.log(users)
         res.json(users)
 
 } 
+
+//Controlador que obtiene el usuario por ID
 
 export const getUserByIdCtrl = async(req,res) => {
 

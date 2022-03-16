@@ -32,10 +32,15 @@ export const retrieveMsg = async(conversationId) => {
         const db = client.db(DATABASE_NAME);
         const messageCol = db.collection(COLLECTION_NAME);
         const query = {conversationId}
+        const opt ={
+            projection:{_id:0}
+        }
    
-        const messages = await messageCol.find(query).toArray(function(err,res){
-            console.log(res)
-        })
+        const messages = await messageCol.find({},opt).toArray()
+    
+        // const messages = await messageCol.find(query).toArray(function(err,res){
+        //     console.log(res)
+        // })
 
         return messages ?? undefined
 
