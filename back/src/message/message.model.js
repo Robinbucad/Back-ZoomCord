@@ -35,8 +35,9 @@ export const retrieveMsg = async(conversationId) => {
         const opt ={
             projection:{_id:0}
         }
-   
-        const messages = await messageCol.find({},opt).toArray()
+        
+        console.log(query)
+        const messages = await messageCol.find(query,opt).toArray()
     
         // const messages = await messageCol.find(query).toArray(function(err,res){
         //     console.log(res)
