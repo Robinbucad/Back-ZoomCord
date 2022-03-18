@@ -2,6 +2,7 @@ import express from 'express'
 import { Server } from 'socket.io'
 import { createServer } from 'http'
 
+
 /**
  * Si quiero enviar datos al cliente, usare use io para enviar a rodo el cliente
  *  -use io.emit para enviar a un cliente ej.(use io.to(socketID).emit)
@@ -36,17 +37,9 @@ const removeUser = (socketId) => {
 }
 
 
-
-const getUser = (userId) => { // ESTA FUNCION ME BUSCA EL USUARIO QUE TENGA EL MISMO ID QUE EN EL ARRAY DE USUARIOS,     
-  users.filter(user => user.userId === userId)
-  console.log(userId)
-}
-
-
 io.on("connection",(socket) => {
     //CONEXION
-
-
+/**ONE TO ONE PRIVATE CHAT */
     socket.on("join_chat",(room) => {
         socket.join(room)   
         console.log(`user join room ${room}`)
@@ -60,16 +53,17 @@ io.on("connection",(socket) => {
 
     //ENVIO DE MENSAJE Y RECIBO MENSAJE
     socket.on("sendMessage",(data) => {
-        // const user = getUser(receiverId); //BUSCO EL USUARIO
-        // console.log(users)
-        // console.log(users.find(user => user.userId !== senderId))
-        console.log(data)
         io.to(data.conversationId).emit("getMessage",{ // ENVIAMOS EL MENSAJE AL RECEPTOR
             senderId:data.senderId,
             text:data.text
         })
     })
   
+    /**GROUP CHAT */
+    socket.on("join_serv",(room) => {
+        socket.join(room)
+        console.log(`User joined room ${room}`)
+    })
 
     //DESCONEXION
     socket.on("disconnect", () => {
