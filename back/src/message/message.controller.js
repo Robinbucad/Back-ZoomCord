@@ -6,10 +6,6 @@ export const messageCtrl = async(req,res) => {
            ...req.body,
            
         }
-    
-
-
-        console.log(message)
         await createMsg(message)
         res.status(201).json(message)
 }

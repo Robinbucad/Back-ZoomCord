@@ -106,7 +106,7 @@ export const retrieveUsers = async() => {
     }catch(err){
         console.error('Retrieve users err:', err)
     }finally{
-       await client.close()
+        client.close()
     }
 }
 

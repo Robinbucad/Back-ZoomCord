@@ -1,4 +1,4 @@
-import { createConv, retrieveConv } from "./conversation.model.js"
+import { createConv, retreiveConversationById, retrieveConv } from "./conversation.model.js"
 
 
 // Controlador que manda el body del mensaje
@@ -20,4 +20,11 @@ export const getConversations = async(req,res) => {
 
 }
 
+export const getConversationByIdCtrl = async(req,res) =>{
+    const {id} = req.params
+    
+    const conv = await  retreiveConversationById(id)
+    if(conv !== undefined)res.json(conv)
+    else res.sendStatus(404)
+}
 

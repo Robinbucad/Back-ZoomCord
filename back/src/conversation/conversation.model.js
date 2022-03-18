@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb'
+import { MongoClient, ObjectId } from 'mongodb'
 
 const URI = 'mongodb+srv://robin:1122loco@discord.3po3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
@@ -39,3 +39,22 @@ export const retrieveConv = async () => {
     }
 };
 
+export const retreiveConversationById = async (id) => {
+    try{
+        await client.connect(); 
+        const db = client.db(DATABASE_NAME); 
+        const converCol = db.collection(COLLECTION_NAME);
+        let o_id = new ObjectId(id)
+        const opt = {
+            projection: { status:0 }
+        }
+
+
+        const conver = await converCol.find({"members":id}, opt).toArray(); 
+        return conver ?? undefined;
+    }catch(err){
+        console.error('Retrieve users error: ', err);
+    }finally {
+        client.close(); 
+    }
+};

@@ -16,11 +16,11 @@ export const registerCtrl = async(req,res) =>{
         const user = await getUserbyEmailNoStatus(req.body.email)
         if(user === null){
             req.body.password = encodePassword(req.body.password)
-            await createUser({...req.body, status: 'PENDING_VALIDATION'})
+            await createUser({...req.body, status: 'PENDING_VALIDATION', img:'https://i.pinimg.com/736x/cb/45/72/cb4572f19ab7505d552206ed5dfb3739.jpg'})
             const token = generateValidationToken()
             await createValidationToken(token,req.body.email)
             
-            sendValidationEmail(req.body.email, `http://localhost:3000/validate/token=${token}`)
+            sendValidationEmail(req.body.email, `http://localhost:3000/validate?token=${token}`)
             res.sendStatus(201);
         }else{
             res.sendStatus(409) // MANDO UN CONFLICT (409) SI EL USUARIO EXISTE EN NUEXTRA BBDD
@@ -41,6 +41,7 @@ export const registerCtrl = async(req,res) =>{
 
 export const validateEmailCtrl = async(req,res) => {
     const {token} = req.query
+    console.log(token)
     const valToken = await retrieveValidationToken(token)
     if(valToken !== null){
         //exsite token
