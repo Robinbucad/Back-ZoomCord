@@ -16,5 +16,4 @@ export const conversationCtrl = async(req,res) => {
         console.log(messages)
         res.json(messages)
      
-
 }

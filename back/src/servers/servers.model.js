@@ -33,3 +33,71 @@ export const createServer = async (server) => {
         client.close()
     }
 }
+
+export const retrieveServerById = async(id) => {
+    try{
+        await client.connect()
+        const db = client.db(DATABASE_NAME);
+        const server = db.collection(COLLECTION_NAME);
+        
+        const query = {
+            _id:ObjectId(id)
+        }
+  
+        const opt = {
+            projection:{img:0}
+        }
+        const serverFind = await server.findOne(query,opt)
+        return serverFind
+    
+    }catch(err){
+        console.error('Error al recibir servidor', err)
+    }finally{
+        client.close()
+    }
+}
+
+export const pushMemberSever = async(id,userId) => {
+    try{
+        await client.connect()
+        const db = client.db(DATABASE_NAME);
+        const server = db.collection(COLLECTION_NAME);
+        
+        const query = {
+            _id:ObjectId(id)
+        }
+      
+
+        const opt = {
+            $push: {
+                members:userId
+            }
+        }
+        const serverFind = await server.updateOne(query,opt)
+        return serverFind
+    
+    }catch(err){
+        console.error('Error al recibir servidor', err)
+    }finally{
+        client.close()
+    }
+}
+
+export const retrieveServerByUser = async(id) => {
+    try{
+        await client.connect(); 
+        const db = client.db(DATABASE_NAME); 
+        const converServCol = db.collection(COLLECTION_NAME);
+        const opt = {
+            projection: { status:0 }
+        }
+
+
+        const conver = await converServCol.find({"members":id}, opt).toArray(); 
+        return conver ?? undefined;
+    }catch(err){
+        console.error('Retrieve users error: ', err);
+    }finally {
+        client.close(); 
+    }
+}
