@@ -65,6 +65,13 @@ io.on("connection",(socket) => {
         console.log(`User joined room ${room}`)
     })
 
+    socket.on("sendServMsg", (data) => {
+        io.to(data.conversationId).emit("getServMsg",{
+            senderId:data.senderId,
+            text:data.text
+        })
+    })
+
     //DESCONEXION
     socket.on("disconnect", () => {
         removeUser(socket.id)
