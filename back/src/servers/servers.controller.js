@@ -1,5 +1,6 @@
 
-import { retreiveUsersById } from "../users/users.model.js"
+import { ObjectId } from "mongodb"
+import { retreiveUsersById, retrieveUsers } from "../users/users.model.js"
 import { createServer, pushMemberSever, retrieveServerById, retrieveServerByUser, retrieveServers } from "./servers.model.js"
 
 
@@ -41,8 +42,10 @@ export const getServConversationByIdCtrl = async(req,res) =>{
 export const pushMemberCtrl = async (req,res) => {
     const {id} = req.params
     const {userId} = req.body
-    console.log(userId)
+
+
     const members =await retrieveServerById(id)
+    console.log(members)
     const checkMembers = (members.members.some(e => e === userId)) //VERIFICO SI EL USUARIO EXISTE EN EL SERVIDOR
     if(!checkMembers){
         pushMemberSever(id,userId)

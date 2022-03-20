@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUserInfo, getFriendListCtlr, getUserByIdCtrl,deleteCurrentUserCtrl } from './users.controller.js';
+import { getUserInfo, getFriendListCtlr, getUserByIdCtrl,deleteCurrentUserCtrl,getUsersByUsernameCtrl } from './users.controller.js';
 
 
 const router = express.Router();
@@ -11,6 +11,8 @@ router.route('/')
 router.route('/friends')
     .get(getFriendListCtlr)
 
+router.route('/friends/:username')
+    .get(getUsersByUsernameCtrl)
 
 router.route('/:id')
     .get(getUserByIdCtrl)

@@ -28,7 +28,6 @@ const addUser = (userId,socketId) => { // INDICO QUE SI NO EXITE EL USUARIO HAGA
  !users.some((user) => user.userId === userId)&&
     users.push({ userId, socketId });
    
-   
 }
 
 const removeUser = (socketId) => {
@@ -48,15 +47,22 @@ io.on("connection",(socket) => {
     socket.on("addUser", (userId) => {
         addUser(userId,socket.id)
         io.emit("getUsers", users)
+        console.log(users)
     })
 
 
     //ENVIO DE MENSAJE Y RECIBO MENSAJE
     socket.on("sendMessage",(data) => {
+        console.log(data)
         io.to(data.conversationId).emit("getMessage",{ // ENVIAMOS EL MENSAJE AL RECEPTOR
+            date:data.date,
+            username:data.username,
+            img:data.img,
             senderId:data.senderId,
-            text:data.text
+            text:data.text,
+            conversationId:data.conversationId
         })
+        
     })
   
     /**GROUP CHAT */
@@ -67,6 +73,9 @@ io.on("connection",(socket) => {
 
     socket.on("sendServMsg", (data) => {
         io.to(data.conversationId).emit("getServMsg",{
+            username:data.username,
+            date:data.date,
+            img:data.img,
             senderId:data.senderId,
             text:data.text
         })

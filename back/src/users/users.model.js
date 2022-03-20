@@ -147,3 +147,22 @@ export const deleteUser = async(id) => {
        await client.close()
     }
 }
+
+export const retreiveUsersByUsername = async (username) => {
+    try{
+        await client.connect(); 
+        const db = client.db(DATABASE_NAME); 
+        const userCol = db.collection(COLLECTION_NAME);
+        const opt = {
+            projection: { status:0 }
+        }
+     
+        const users = await userCol.find({"username":username}, opt).toArray(); 
+     
+        return users ?? undefined;
+    }catch(err){
+        console.error('Retrieve users error: ', err);
+    }finally {
+        client.close(); 
+    }
+};

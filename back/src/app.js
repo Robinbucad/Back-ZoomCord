@@ -10,6 +10,7 @@ import messagesRouter from './message/messages.routes.js'
 import serverRouter from './servers/servers.router.js'
 import serverMessages from './messageServer/messageServer.router.js'
 
+
 const app = express()
 const port = 3001
 const server = http.createServer(app)
@@ -31,9 +32,9 @@ app.use(express.urlencoded({extended:'utf-8'}))
 
 app.use('/auth', authRouter);
 app.use('/users', validateAuth, userRouter)
-app.use('/conversation',validateAuth, conversationRouter)
+app.use('/conversation',validateAuth,conversationRouter)
 app.use('/message',validateAuth, messagesRouter)
-app.use('/servers',validateAuth,serverRouter)
+app.use('/servers',serverRouter)
 app.use('/servMsg', validateAuth, serverMessages)
 
 // HACEMOS PRIMERO REGISTER(POST), VALIDATE(GET), LOGIN(POST), GET USERS(GET)

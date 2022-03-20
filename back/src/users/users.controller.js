@@ -1,5 +1,5 @@
 
-import {deleteUser, retreiveUsersById, retrieveUserInfoByEmail, retrieveUsers} from './users.model.js'
+import {deleteUser, retreiveUsersById, retreiveUsersByUsername, retrieveUserInfoByEmail, retrieveUsers} from './users.model.js'
 
 export const getUserInfo = async (req,res) => {
     //obtener el email --> Lo tengo que obtener del token
@@ -30,7 +30,6 @@ export const getUserByIdCtrl = async(req,res) => {
     const {id} = req.params;
     
     const user = await retreiveUsersById(id);
-    console.log(user)
     if(user !== undefined)res.json(user);
     else res.sendStatus(404)
 }
@@ -40,4 +39,14 @@ export const deleteCurrentUserCtrl = async(req,res) => {
     const user =await  deleteUser(id)
     res.json(user)
     console.log(user)
+}
+
+
+export const getUsersByUsernameCtrl = async(req,res) => {
+    const {username} = req.params
+    
+    const users = await retreiveUsersByUsername(username)
+    console.log(users)
+    res.json(users)
+
 }

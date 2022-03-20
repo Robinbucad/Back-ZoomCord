@@ -1,4 +1,4 @@
-import { MongoClient, ObjectId } from 'mongodb'
+import { MongoClient} from 'mongodb'
 
 const URI = 'mongodb+srv://robin:1122loco@discord.3po3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
@@ -13,7 +13,6 @@ export const createConv = async (chat) => {
         await client.connect(); 
         const db = client.db(DATABASE_NAME); 
         const conv = db.collection(COLLECTION_NAME);
-
         await conv.insertOne(chat)
     }catch(err){
         console.error('Conv wrong: ', err);
@@ -44,7 +43,6 @@ export const retreiveConversationById = async (id) => {
         await client.connect(); 
         const db = client.db(DATABASE_NAME); 
         const converCol = db.collection(COLLECTION_NAME);
-        let o_id = new ObjectId(id)
         const opt = {
             projection: { status:0 }
         }

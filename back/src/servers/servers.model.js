@@ -44,10 +44,7 @@ export const retrieveServerById = async(id) => {
             _id:ObjectId(id)
         }
   
-        const opt = {
-            projection:{img:0}
-        }
-        const serverFind = await server.findOne(query,opt)
+        const serverFind = await server.findOne(query)
         return serverFind
     
     }catch(err){

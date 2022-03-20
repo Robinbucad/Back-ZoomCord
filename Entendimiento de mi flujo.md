@@ -40,3 +40,7 @@ Cada usuario tiene un id diferente, por tanto cada usuario va a tener unos chats
 -> METHOD post createMessageCtrl: Esto creo un mensaje, se pasa el SenderId, el text, y el conversationId que en este caso es el Id del servidor.
 
 -> METHOD getConversationServCtrl: Este recupera las conversaciones de un servidor pasandole por parametros el id del servidor (conversationId)
+
+## FLUJO DE FOLLOW
+
+Voy a crear un componente en react que va a tener un input, cuando el usuario busque, va a hacer un GET a todos los usuarios registrados(/friends), cada usuario de la lista va a tener un boton de follow, si el usuario le da, hare un post a (/conversations), pasandole por el body, el ID del usuario actual, y el usuario a seguir.

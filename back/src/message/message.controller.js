@@ -13,7 +13,7 @@ export const messageCtrl = async(req,res) => {
 export const conversationCtrl = async(req,res) => {
         const {conversationId} = req.params
         const messages = await retrieveMsg(conversationId)
-        console.log(messages)
+ 
         res.json(messages)
      
 }

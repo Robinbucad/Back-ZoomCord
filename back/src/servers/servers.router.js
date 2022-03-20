@@ -1,18 +1,19 @@
 import express from "express";
+import { validateAuth } from "../auth/auth.middleware.js";
 import {serversCtrl,createServerCtrl, getServerById,pushMemberCtrl, getServConversationByIdCtrl} from './servers.controller.js'
 
 
 const router = express.Router()
 
 router.route('/')
-    .get(serversCtrl)
-    .post(createServerCtrl)
+    .get(validateAuth,serversCtrl)
+    .post(validateAuth,createServerCtrl)
 
 router.route('/:id')
     .get(getServerById)
-    .post(pushMemberCtrl)
+    .post(validateAuth,pushMemberCtrl)
 
 router.route('/conversations/:id')
-    .get(getServConversationByIdCtrl)
+    .get(validateAuth,getServConversationByIdCtrl)
 
 export default router
