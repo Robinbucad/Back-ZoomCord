@@ -10,13 +10,14 @@ import { encodePassword, generateValidationToken } from "./auth.utils.js";
 import {createValidationToken, deleteValidationToken, retrieveValidationToken} from './auth.model.js'
 import { sendValidationEmail } from "../adapters/email.js";
 import { jwt_secret } from './auth.secrets.js';
+import {v4 as uuidv4} from 'uuid'
 
 export const registerCtrl = async(req,res) =>{
     try{
         const user = await getUserbyEmailNoStatus(req.body.email)
         if(user === null){
             req.body.password = encodePassword(req.body.password)
-            await createUser({...req.body, status: 'PENDING_VALIDATION', img:'https://i.pinimg.com/736x/cb/45/72/cb4572f19ab7505d552206ed5dfb3739.jpg'})
+            await createUser({...req.body, status: 'PENDING_VALIDATION' ,img:'https://i.pinimg.com/736x/cb/45/72/cb4572f19ab7505d552206ed5dfb3739.jpg'})
             const token = generateValidationToken()
             await createValidationToken(token,req.body.email)
             

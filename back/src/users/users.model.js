@@ -101,8 +101,7 @@ export const retrieveUsers = async() => {
         }
         
         const users = await usersCol.find({}, opt).toArray()
-        console.log(users)
-        return  users
+        return users ?? undefined
     }catch(err){
         console.error('Retrieve users err:', err)
     }finally{
@@ -116,13 +115,11 @@ export const retreiveUsersById = async (id) => {
         const db = client.db(DATABASE_NAME); 
         const userCol = db.collection(COLLECTION_NAME);
         const opt = {
-            projection: { status:0 }
+            projection: { password:0 }
         }
-        const query = { 
-            _id:ObjectId(id)
-           }
-
-        const user = await userCol.findOne(query, opt); 
+    
+           
+        const user = await userCol.findOne({'_id':ObjectId(id)}, opt); 
         return user ?? undefined;
     }catch(err){
         console.error('Retrieve users error: ', err);
@@ -132,6 +129,7 @@ export const retreiveUsersById = async (id) => {
 };
 
 
+
 export const deleteUser = async(id) => {
     try{
         await client.connect()
@@ -139,7 +137,6 @@ export const deleteUser = async(id) => {
         const usersCol = db.collection(COLLECTION_NAME);
         const query = {_id:ObjectId(id)}
         const users = await usersCol.deleteOne(query)
-        console.log(users)
         return  users
     }catch(err){
         console.error('Error al borrar usuario', err)

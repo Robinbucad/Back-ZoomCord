@@ -8,10 +8,10 @@ router.route('/')
     .get(getUserInfo)
     
 
-router.route('/friends')
+router.route('/friends/:id')
     .get(getFriendListCtlr)
 
-router.route('/friends/:username')
+router.route('/friends/add/:username')
     .get(getUsersByUsernameCtrl)
 
 router.route('/:id')

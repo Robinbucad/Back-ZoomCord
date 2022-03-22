@@ -1,7 +1,7 @@
 import express from 'express'
 import { Server } from 'socket.io'
 import { createServer } from 'http'
-
+import cors from 'cors'
 
 /**
  * Si quiero enviar datos al cliente, usare use io para enviar a rodo el cliente
@@ -11,6 +11,7 @@ import { createServer } from 'http'
  */
 
 const app = express()
+app.use(cors())
 const port = 4000
 const httpServer = createServer()
 
@@ -53,7 +54,6 @@ io.on("connection",(socket) => {
 
     //ENVIO DE MENSAJE Y RECIBO MENSAJE
     socket.on("sendMessage",(data) => {
-        console.log(data)
         io.to(data.conversationId).emit("getMessage",{ // ENVIAMOS EL MENSAJE AL RECEPTOR
             date:data.date,
             username:data.username,
@@ -87,6 +87,15 @@ io.on("connection",(socket) => {
         io.emit("getUsers", users)
         
     })
+
+    socket.on('callUser', ({userToCall, signalData,from,name}) => {
+        io.to(userToCall).emit('calluser', {signal:signalData}, from, name)
+    })
+
+    socket.on('answeCall', (data) => {
+        io.to(data.to).emit('callAccepted', data.signal)
+    })
+
 })
 
 httpServer.listen(port, () => console.log(`Socket iniciado en el puerto:${port}`))

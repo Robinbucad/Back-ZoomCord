@@ -17,18 +17,17 @@ export const getUserInfo = async (req,res) => {
 //Controlador que da la lista de usuarios de la aplicacion
 
 export const getFriendListCtlr = async (req,res) => {
-        const users = await retrieveUsers()
-        console.log(users)
-        res.json(users)
+        const {id} = req.params
+        const users = await retreiveUsersById(id)
 
+        res.json(users)
 } 
 
 //Controlador que obtiene el usuario por ID
 
 export const getUserByIdCtrl = async(req,res) => {
-
     const {id} = req.params;
-    
+    console.log(id)
     const user = await retreiveUsersById(id);
     if(user !== undefined)res.json(user);
     else res.sendStatus(404)
@@ -38,7 +37,7 @@ export const deleteCurrentUserCtrl = async(req,res) => {
     const {id} = req.params
     const user =await  deleteUser(id)
     res.json(user)
-    console.log(user)
+
 }
 
 
