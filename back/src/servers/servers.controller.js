@@ -15,7 +15,8 @@ export const createServerCtrl = async (req,res) => {
     const server = {
         name:req.body.name,
         img:req.body.img,
-        members:[req.body.userId]
+        members:[req.body.userId],
+        admin:req.body.ADMIN
     }
     await createServer(server)
     res.status(201).json(server)
