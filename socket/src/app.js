@@ -3,6 +3,7 @@ import { Server } from 'socket.io'
 import { createServer } from 'http'
 import cors from 'cors'
 
+
 /**
  * Si quiero enviar datos al cliente, usare use io para enviar a rodo el cliente
  *  -use io.emit para enviar a un cliente ej.(use io.to(socketID).emit)
@@ -35,6 +36,7 @@ const removeUser = (socketId) => {
 }
 
 
+
 io.on("connection",(socket) => {
     //CONEXION
 /**ONE TO ONE PRIVATE CHAT  -> ME guio para ver quien entra a una sala*/ 
@@ -42,7 +44,9 @@ io.on("connection",(socket) => {
         socket.join(room)   
         console.log(`user join room ${room}`)
     })
+    socket.emit("me", socket.id)
 
+    
     //FUNCION QUE NO LE ESTOY DANDO DE MOMENTO FUNCIONALIDAD, EN UN FUTURO TENIA PENSADO VER QUIEN ESTA ONLINE
 
     socket.on("addUser", (userId) => {
@@ -68,6 +72,7 @@ io.on("connection",(socket) => {
     socket.on("join_serv",(room) => {
         socket.join(room)
         console.log(`User joined room ${room}`)
+
     })
 
     socket.on("sendServMsg", (data) => {
@@ -84,16 +89,11 @@ io.on("connection",(socket) => {
     socket.on("disconnect", () => {
         removeUser(socket.id)
         io.emit("getUsers", users)
+        socket.broadcast.emit("callEnded")
         
     })
 
-    // socket.on('callUser', ({userToCall, signalData,from,name}) => {
-    //     io.to(userToCall).emit('calluser', {signal:signalData}, from, name)
-    // })
-
-    // socket.on('answeCall', (data) => {
-    //     io.to(data.to).emit('callAccepted', data.signal)
-    // })
+    
 
 })
 

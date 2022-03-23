@@ -10,7 +10,7 @@ import messagesRouter from './message/messages.routes.js'
 import serverRouter from './servers/servers.router.js'
 import serverMessages from './messageServer/messageServer.router.js'
 import publications from './publicaciones/pub.router.js'
-
+import textChannels from './textChannelServer/textChannel.router.js'
 
 const app = express()
 const port = 3001
@@ -38,6 +38,7 @@ app.use('/message',validateAuth, messagesRouter)
 app.use('/servers',serverRouter)
 app.use('/servMsg', validateAuth, serverMessages)
 app.use('/publications',validateAuth,publications)
+app.use('/textChannels',textChannels)
 
 // HACEMOS PRIMERO REGISTER(POST), VALIDATE(GET), LOGIN(POST), GET USERS(GET)
 

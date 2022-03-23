@@ -8,6 +8,6 @@ router.route('/')
     .get(getMessagesCtrl)
     .post(createMsgServCtrl)
 
-router.route('/:conversationId')
+router.route('/:conversationId/')
     .get(conversationServCtrl)
 export default router
