@@ -9,6 +9,7 @@ import conversationRouter from './conversation/conversation.routes.js'
 import messagesRouter from './message/messages.routes.js'
 import serverRouter from './servers/servers.router.js'
 import serverMessages from './messageServer/messageServer.router.js'
+import publications from './publicaciones/pub.router.js'
 
 
 const app = express()
@@ -36,6 +37,7 @@ app.use('/conversation',validateAuth,conversationRouter)
 app.use('/message',validateAuth, messagesRouter)
 app.use('/servers',serverRouter)
 app.use('/servMsg', validateAuth, serverMessages)
+app.use('/publications',validateAuth,publications)
 
 // HACEMOS PRIMERO REGISTER(POST), VALIDATE(GET), LOGIN(POST), GET USERS(GET)
 

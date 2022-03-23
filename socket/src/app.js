@@ -28,22 +28,22 @@ const users = []; //Guardo los usuarios en una variable constante ya que el sock
 const addUser = (userId,socketId) => { // INDICO QUE SI NO EXITE EL USUARIO HAGA UN PUSH AL ARRAY DE USERS 
  !users.some((user) => user.userId === userId)&&
     users.push({ userId, socketId });
-   
 }
 
 const removeUser = (socketId) => {
     users.filter(user => user?.socketId !== socketId)
-    
 }
 
 
 io.on("connection",(socket) => {
     //CONEXION
-/**ONE TO ONE PRIVATE CHAT */
+/**ONE TO ONE PRIVATE CHAT  -> ME guio para ver quien entra a una sala*/ 
     socket.on("join_chat",(room) => {
         socket.join(room)   
         console.log(`user join room ${room}`)
     })
+
+    //FUNCION QUE NO LE ESTOY DANDO DE MOMENTO FUNCIONALIDAD, EN UN FUTURO TENIA PENSADO VER QUIEN ESTA ONLINE
 
     socket.on("addUser", (userId) => {
         addUser(userId,socket.id)
@@ -62,7 +62,6 @@ io.on("connection",(socket) => {
             text:data.text,
             conversationId:data.conversationId
         })
-        
     })
   
     /**GROUP CHAT */
@@ -88,13 +87,13 @@ io.on("connection",(socket) => {
         
     })
 
-    socket.on('callUser', ({userToCall, signalData,from,name}) => {
-        io.to(userToCall).emit('calluser', {signal:signalData}, from, name)
-    })
+    // socket.on('callUser', ({userToCall, signalData,from,name}) => {
+    //     io.to(userToCall).emit('calluser', {signal:signalData}, from, name)
+    // })
 
-    socket.on('answeCall', (data) => {
-        io.to(data.to).emit('callAccepted', data.signal)
-    })
+    // socket.on('answeCall', (data) => {
+    //     io.to(data.to).emit('callAccepted', data.signal)
+    // })
 
 })
 

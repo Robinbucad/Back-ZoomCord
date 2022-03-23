@@ -1,7 +1,7 @@
 
 import { ObjectId } from "mongodb"
 import { retreiveUsersById, retrieveUsers } from "../users/users.model.js"
-import { createServer, pushMemberSever, retrieveServerById, retrieveServerByUser, retrieveServers } from "./servers.model.js"
+import { createServer, deleteServer, pushMemberSever,patchServName ,retrieveServerById, retrieveServerByUser, retrieveServers } from "./servers.model.js"
 
 
 export const serversCtrl = async(req,res) => {
@@ -54,4 +54,28 @@ export const pushMemberCtrl = async (req,res) => {
     }
     else  res.sendStatus(409)
    
+}
+
+
+export const delServCtrl = async(req,res) => {
+    const {id} = req.params
+    const server = await retrieveServerById(id)
+  
+    if(server !== null){
+        deleteServer(id)
+        res.json(server)
+    }else{
+        res.sendStatus(404)
+    }
+   
+}
+
+export const changeServNameCtrl = async(req,res) => {
+    const {id} = req.params
+    const serverNew = {
+        name:req.body.name,
+    }
+    console.log(serverNew)
+    const updatedServer = await patchServName(id,serverNew)   
+    res.json(updatedServer)
 }

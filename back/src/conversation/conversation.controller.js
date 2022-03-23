@@ -17,7 +17,6 @@ export const conversationCtrl = async(req,res) => {
 export const getConversations = async(req,res) => {
     const conversations = await retrieveConv()
     res.json(conversations)
-
 }
 
 export const getConversationByIdCtrl = async(req,res) =>{

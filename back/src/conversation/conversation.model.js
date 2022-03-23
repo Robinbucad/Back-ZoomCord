@@ -53,6 +53,6 @@ export const retreiveConversationById = async (id) => {
     }catch(err){
         console.error('Retrieve users error: ', err);
     }finally {
-        client.close(); 
+        await client.close(); 
     }
 };

@@ -1,6 +1,7 @@
 import express from "express";
 import { validateAuth } from "../auth/auth.middleware.js";
-import {serversCtrl,createServerCtrl, getServerById,pushMemberCtrl, getServConversationByIdCtrl} from './servers.controller.js'
+import {validateDelServMiddleware, validateUpdateNameServMiddleware} from './servers.middleware.js'
+import {serversCtrl,createServerCtrl,changeServNameCtrl ,getServerById,pushMemberCtrl, getServConversationByIdCtrl,delServCtrl} from './servers.controller.js'
 
 
 const router = express.Router()
@@ -12,6 +13,8 @@ router.route('/')
 router.route('/:id')
     .get(getServerById)
     .post(validateAuth,pushMemberCtrl)
+    .delete(validateAuth, validateDelServMiddleware,delServCtrl)
+    .patch(validateAuth,validateUpdateNameServMiddleware,changeServNameCtrl)
 
 router.route('/conversations/:id')
     .get(validateAuth,getServConversationByIdCtrl)

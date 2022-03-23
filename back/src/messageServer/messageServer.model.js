@@ -15,6 +15,8 @@ export const createMsgServ = async(msg) => {
         await messageServ.insertOne(msg)
     }catch(err){
         console.error('Error al crear el mensaje hacia el servidor', err)
+    }finally{
+        await client.close()
     }
 }
 
@@ -38,5 +40,7 @@ export const retrieveMsgServ = async(conversationId) => {
 
     }catch(err){
         console.error(`Retrieve messages error :${err}`)
+    }finally{
+        await client.close()
     }
 }

@@ -15,7 +15,7 @@ export const createUser = async (user) => {
     } catch (err) {
         console.error(err)
     } finally {
-        client.close()
+       await client.close()
     }
 }
 
@@ -28,7 +28,7 @@ export const getUserbyEmailNoStatus = async (email) => { //DADO UN EMAIL ME DEVU
     } catch (err) {
         console.error(err)
     } finally {
-        client.close()
+        await client.close()
     }
 }
 
@@ -47,7 +47,7 @@ export const validateUser = async (email) => {
     } catch (err) {
         console.error(err);
     } finally {
-        client.close();
+       await client.close();
     }
 }
 
@@ -67,7 +67,7 @@ export const retrieveSuccessByEmailAndPassword = async (email, password) => {
     } catch (err) {
         console.error(err);
     } finally {
-        client.close();
+       await client.close();
     }
 }
 
@@ -84,7 +84,7 @@ export const retrieveUserInfoByEmail = async (email) => {
     } catch (err) {
         console.error(err);
     } finally {
-        client.close();
+       await client.close();
     }
 }
 
@@ -105,7 +105,7 @@ export const retrieveUsers = async() => {
     }catch(err){
         console.error('Retrieve users err:', err)
     }finally{
-        client.close()
+       await client.close()
     }
 }
 
@@ -115,7 +115,7 @@ export const retreiveUsersById = async (id) => {
         const db = client.db(DATABASE_NAME); 
         const userCol = db.collection(COLLECTION_NAME);
         const opt = {
-            projection: { password:0 }
+                date:0
         }
     
            
@@ -124,7 +124,7 @@ export const retreiveUsersById = async (id) => {
     }catch(err){
         console.error('Retrieve users error: ', err);
     }finally {
-        client.close(); 
+        await client.close(); 
     }
 };
 
@@ -160,6 +160,54 @@ export const retreiveUsersByUsername = async (username) => {
     }catch(err){
         console.error('Retrieve users error: ', err);
     }finally {
-        client.close(); 
+      await  client.close(); 
     }
 };
+
+
+
+export const patchUserEmail = async (id,email) => {
+    try{
+        await client.connect(); 
+        const db = client.db(DATABASE_NAME); 
+        const userCol = db.collection(COLLECTION_NAME);
+
+        const userEmail = await userCol.updateOne({"_id":ObjectId(id)}, {$set:email}); 
+        return userEmail ?? undefined;
+    }catch(err){
+        console.error('Retrieve users error: ', err);
+    }finally {
+       await client.close(); 
+    }
+};
+
+export const patchUsername = async (id,username) => {
+    try{
+        await client.connect(); 
+        const db = client.db(DATABASE_NAME); 
+        const userCol = db.collection(COLLECTION_NAME);
+
+        const userEmail = await userCol.updateOne({"_id":ObjectId(id)}, {$set:username}); 
+        return userEmail ?? undefined;
+    }catch(err){
+        console.error('Retrieve users error: ', err);
+    }finally {
+      await  client.close(); 
+    }
+};
+
+export const patchImg = async (id,img) => {
+    try{
+        await client.connect(); 
+        const db = client.db(DATABASE_NAME); 
+        const userCol = db.collection(COLLECTION_NAME);
+
+        const userEmail = await userCol.updateOne({"_id":ObjectId(id)}, {$set:img}); 
+        return userEmail ?? undefined;
+    }catch(err){
+        console.error('Retrieve users error: ', err);
+    }finally {
+       await client.close(); 
+    }
+};
+

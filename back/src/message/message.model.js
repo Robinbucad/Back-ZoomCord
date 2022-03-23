@@ -46,5 +46,7 @@ export const retrieveMsg = async(conversationId) => {
 
     }catch(err){
         console.error(`Retrieve messages error :${err}`)
+    }finally{
+       await client.close()
     }
 }

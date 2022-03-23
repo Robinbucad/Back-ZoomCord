@@ -18,7 +18,7 @@ export const createValidationToken = async(token,userName) => {
     }catch(err){
         console.error(err)
     }finally{
-        client.close()
+       await client.close()
     }
 }
 
@@ -33,7 +33,7 @@ export const retrieveValidationToken = async(token) => {
     }catch(err){
         console.error(err)
     }finally{
-        client.close()
+        await client.close()
     }
 }
 
@@ -48,7 +48,7 @@ export const deleteValidationToken = async(token) => {
     }catch(err){
         console.error(err)
     }finally{
-        client.close()
+        await  client.close()
     }
 }
 

@@ -1,5 +1,6 @@
 
-import {deleteUser, retreiveUsersById, retreiveUsersByUsername, retrieveUserInfoByEmail, retrieveUsers} from './users.model.js'
+import { encodePassword } from '../auth/auth.utils.js'
+import {deleteUser, patchImg, patchUserEmail, patchUsername, retreiveUsersById, retreiveUsersByUsername, retrieveUserInfoByEmail, retrieveUsers} from './users.model.js'
 
 export const getUserInfo = async (req,res) => {
     //obtener el email --> Lo tengo que obtener del token
@@ -49,3 +50,35 @@ export const getUsersByUsernameCtrl = async(req,res) => {
     res.json(users)
 
 }
+
+export const updateEmailCtrl = async(req,res) => {
+    const {id} = req.params
+    const pass = encodePassword(req.body.password)
+    const userNew = {
+        email:req.body.email,
+        password:pass
+    }
+    const updatedEmail = await patchUserEmail(id,userNew)   
+    res.json(updatedEmail)
+}
+
+export const updateUsernameCtrl = async(req,res) => {
+    const {id} = req.params
+    const userNew = {
+        username:req.body.username,
+    }
+    const updatedUsername = await patchUsername(id,userNew)   
+    res.json(updatedUsername)
+}
+
+
+
+export const updateImgCtrl = async(req,res) => {
+    const {id} = req.params
+    const userNew = {
+        img:req.body.img,
+    }
+    const updatedUsername = await patchImg(id,userNew)   
+    res.json(updatedUsername)
+}
+

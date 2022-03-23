@@ -30,7 +30,7 @@ export const createServer = async (server) => {
     } catch (err) {
         console.error(err)
     } finally {
-        client.close()
+        await client.close()
     }
 }
 
@@ -50,7 +50,7 @@ export const retrieveServerById = async(id) => {
     }catch(err){
         console.error('Error al recibir servidor', err)
     }finally{
-        client.close()
+        await   client.close()
     }
 }
 
@@ -76,7 +76,7 @@ export const pushMemberSever = async(id,userId) => {
     }catch(err){
         console.error('Error al recibir servidor', err)
     }finally{
-        client.close()
+        await  client.close()
     }
 }
 
@@ -95,6 +95,36 @@ export const retrieveServerByUser = async(id) => {
     }catch(err){
         console.error('Retrieve users error: ', err);
     }finally {
-        client.close(); 
+        await  client.close(); 
+    }
+}
+
+export const deleteServer = async(id) => {
+    try{
+        await client.connect()
+        const db = client.db(DATABASE_NAME);
+        const usersCol = db.collection(COLLECTION_NAME);
+        const query = {_id:ObjectId(id)}
+        const servs = await usersCol.deleteOne(query)
+        return  servs
+    }catch(err){
+        console.error('Error al borrar usuario', err)
+    }finally{
+       await client.close()
+    }
+}
+
+export const patchServName = async(id,name) => {
+    try{
+        await client.connect(); 
+        const db = client.db(DATABASE_NAME); 
+        const servCol = db.collection(COLLECTION_NAME);
+
+        const servName = await servCol.updateOne({"_id":ObjectId(id)}, {$set:name}); 
+        return servName ?? undefined;
+    }catch(err){
+        console.error('Retrieve servers error: ', err);
+    }finally {
+      await  client.close(); 
     }
 }
