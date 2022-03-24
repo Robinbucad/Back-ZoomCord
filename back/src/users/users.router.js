@@ -1,6 +1,7 @@
 import express from 'express';
 import { getUserInfo,updateImgCtrl,updateEmailCtrl, getFriendListCtlr, getUserByIdCtrl,deleteCurrentUserCtrl,getUsersByUsernameCtrl, updateUsernameCtrl } from './users.controller.js';
 import { validateUpdateMiddleware } from './users.middleware.js';
+import {upload} from '../multer/index.js'
 
 const router = express.Router();
 
@@ -27,7 +28,7 @@ router.route('/username/:id')
     .patch(validateUpdateMiddleware,updateUsernameCtrl)
 
 router.route('/img/:id')
-    .patch(updateImgCtrl)
+    .patch(upload.single('file'), updateImgCtrl)
 
 
 export default router;

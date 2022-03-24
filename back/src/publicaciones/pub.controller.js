@@ -1,4 +1,5 @@
 import { createPublication, retrievePostById, retrievePubs,setLikes, unsetLikes } from "./pub.model.js"
+import { Public } from "../multer/index.js"
 
 export const getPostCtrl = async(req,res) =>{
     const pubs = await retrievePubs()
@@ -7,10 +8,14 @@ export const getPostCtrl = async(req,res) =>{
 } 
 
 export const postPubCtrl = async (req,res) => {
+
+    const img = `${Public}${req.file.filename}`
+
     const publication = {
         username:req.body.username,
         description:req.body.description,
-        img:req.body.img,
+        file:img,
+        //img:req.body.img,
         likes:[]
     }
     await createPublication(publication)

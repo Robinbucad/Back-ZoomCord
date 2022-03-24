@@ -39,8 +39,8 @@ app.use('/servers',serverRouter)
 app.use('/servMsg', validateAuth, serverMessages)
 app.use('/publications',validateAuth,publications)
 app.use('/textChannels',textChannels)
+app.use('/static',express.static('public-static'))   
 
-// HACEMOS PRIMERO REGISTER(POST), VALIDATE(GET), LOGIN(POST), GET USERS(GET)
 
 
 

@@ -1,5 +1,6 @@
 
 import { ObjectId } from "mongodb"
+import { Public } from "../multer/index.js"
 import { retreiveUsersById, retrieveUsers } from "../users/users.model.js"
 import { createServer, deleteServer, pushMemberSever,patchServName ,retrieveServerById, retrieveServerByUser, retrieveServers } from "./servers.model.js"
 
@@ -12,9 +13,12 @@ export const serversCtrl = async(req,res) => {
 }
 
 export const createServerCtrl = async (req,res) => {
+
+    const img = `${Public}${req.file.filename}`
+
     const server = {
         name:req.body.name,
-        img:req.body.img,
+        file:img,
         members:[req.body.userId],
         admin:req.body.ADMIN
     }

@@ -1,5 +1,6 @@
 
 import { encodePassword } from '../auth/auth.utils.js'
+import { Public } from '../multer/index.js'
 import {deleteUser, patchImg, patchUserEmail, patchUsername, retreiveUsersById, retreiveUsersByUsername, retrieveUserInfoByEmail, retrieveUsers} from './users.model.js'
 
 export const getUserInfo = async (req,res) => {
@@ -75,8 +76,10 @@ export const updateUsernameCtrl = async(req,res) => {
 
 export const updateImgCtrl = async(req,res) => {
     const {id} = req.params
+    const img = `${Public}${req.file.filename}`
+
     const userNew = {
-        img:req.body.img,
+       file:img,
     }
     const updatedUsername = await patchImg(id,userNew)   
     res.json(updatedUsername)

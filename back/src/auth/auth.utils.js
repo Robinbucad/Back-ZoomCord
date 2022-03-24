@@ -13,3 +13,4 @@ export const encodePassword = (pass) => {
 export const generateValidationToken = () => {
     return crypto.randomBytes(128).toString(`hex`)
 }
+
