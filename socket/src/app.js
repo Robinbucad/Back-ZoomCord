@@ -44,8 +44,8 @@ io.on("connection",(socket) => {
         socket.join(room)   
         console.log(`user join room ${room}`)
     })
-    socket.emit("me", socket.id)
 
+    socket.emit("me", socket.id);
     
     //FUNCION QUE NO LE ESTOY DANDO DE MOMENTO FUNCIONALIDAD, EN UN FUTURO TENIA PENSADO VER QUIEN ESTA ONLINE
 
@@ -85,6 +85,15 @@ io.on("connection",(socket) => {
         })
     })
 
+    socket.on("callUser", ({ userToCall, signalData, from, name }) => {
+        console.log(from)
+		io.to(userToCall).emit("callUser", { signal: signalData, from, name });
+	});
+
+	socket.on("answerCall", (data) => {
+		io.to(data.to).emit("callAccepted", data.signal)
+	});
+
     //DESCONEXION
     socket.on("disconnect", () => {
         removeUser(socket.id)
@@ -93,7 +102,7 @@ io.on("connection",(socket) => {
         
     })
 
-    
+ 
 
 })
 
