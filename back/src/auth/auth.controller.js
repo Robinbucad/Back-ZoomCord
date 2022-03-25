@@ -66,7 +66,7 @@ export const loginCtrl = async(req,res) => {
     const {email, password} = req.body
 
     const user = await retrieveSuccessByEmailAndPassword(email,encodePassword(password))
-    console.log(user)
+
     if(user !== null){
         // existe usuario
         const token = jwt.sign({email:user.email},jwt_secret)

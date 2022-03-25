@@ -50,7 +50,7 @@ export const pushMemberCtrl = async (req,res) => {
 
 
     const members =await retrieveServerById(id)
-    console.log(members)
+
     const checkMembers = (members.members.some(e => e === userId)) //VERIFICO SI EL USUARIO EXISTE EN EL SERVIDOR
     if(!checkMembers){
         pushMemberSever(id,userId)
@@ -79,7 +79,7 @@ export const changeServNameCtrl = async(req,res) => {
     const serverNew = {
         name:req.body.name,
     }
-    console.log(serverNew)
+
     const updatedServer = await patchServName(id,serverNew)   
     res.json(updatedServer)
 }

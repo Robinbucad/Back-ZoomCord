@@ -37,10 +37,7 @@ export const retrieveMsg = async(conversationId) => {
         }
         
         const messages = await messageCol.find(query,opt).toArray()
-    
-        // const messages = await messageCol.find(query).toArray(function(err,res){
-        //     console.log(res)
-        // })
+
 
         return messages ?? undefined
 

@@ -29,7 +29,7 @@ export const getFriendListCtlr = async (req,res) => {
 
 export const getUserByIdCtrl = async(req,res) => {
     const {id} = req.params;
-    console.log(id)
+ 
     const user = await retreiveUsersById(id);
     if(user !== undefined)res.json(user);
     else res.sendStatus(404)

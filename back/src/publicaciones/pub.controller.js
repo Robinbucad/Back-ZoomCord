@@ -12,6 +12,7 @@ export const postPubCtrl = async (req,res) => {
     const img = `${Public}${req.file.filename}`
 
     const publication = {
+        id:req.body.userId,
         username:req.body.username,
         description:req.body.description,
         file:img,

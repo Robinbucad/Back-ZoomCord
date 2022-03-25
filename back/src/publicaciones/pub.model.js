@@ -80,7 +80,7 @@ export const unsetLikes = async (id,username) => {
       
         const query={_id:ObjectId(id)}
         const opt = {$pull:{likes:username}}
-        console.log(opt)
+
         const likes = await pubsCol.updateOne(query,opt)
         return likes
     }catch(err){
