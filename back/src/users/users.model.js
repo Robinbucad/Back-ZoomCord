@@ -114,12 +114,8 @@ export const retreiveUsersById = async (id) => {
         await client.connect(); 
         const db = client.db(DATABASE_NAME); 
         const userCol = db.collection(COLLECTION_NAME);
-        const opt = {
-                date:0
-        }
-    
            
-        const user = await userCol.findOne({'_id':ObjectId(id)}, opt); 
+        const user = await userCol.findOne({'_id':ObjectId(id)}); 
         return user ?? undefined;
     }catch(err){
         console.error('Retrieve users error: ', err);

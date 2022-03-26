@@ -30,12 +30,7 @@ export const retrieveMsgServ = async(conversationId) => {
         const opt ={
             projection:{_id:0}
         }
-        
-  
         const messages = await messageServCol.find(query,opt).toArray()
-
-
-
         return messages ?? undefined
 
     }catch(err){

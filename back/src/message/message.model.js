@@ -7,7 +7,7 @@ const client = new MongoClient(URI);
 const DATABASE_NAME = 'social';
 const COLLECTION_NAME = 'messages'
 
-//Creo el mensaje 
+
 export const createMsg = async (msg) => {
     try{
         await client.connect(); 
@@ -21,9 +21,6 @@ export const createMsg = async (msg) => {
         await client.close(); 
     }
 }
-
-
-//Recupero todos los mensajes de una misma conversacion
 
 export const retrieveMsg = async(conversationId) => {
     try{
