@@ -31,8 +31,10 @@ export const getUserByIdCtrl = async(req,res) => {
     const {id} = req.params;
  
     const user = await retreiveUsersById(id);
-    if(user !== undefined)res.json(user);
-    else res.sendStatus(404)
+    if(user !== undefined){
+        res.json(user)
+    }else{
+    res.sendStatus(404)}
 }
 
 export const deleteCurrentUserCtrl = async(req,res) => {

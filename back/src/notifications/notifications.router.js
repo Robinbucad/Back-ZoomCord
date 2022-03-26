@@ -2,7 +2,7 @@
 
 import express from "express";
 
-import {getNotificationsByReceiverCtrl, getNotificationsCtrl,postNotificationCtrl} from './notifications.controller.js'
+import {getNotificationsByReceiverCtrl, getNotificationsCtrl,postNotificationCtrl,deleteNotificationsCtrl} from './notifications.controller.js'
 import { validateNotification } from "./notifications.middleware.js";
 
 const router = express.Router()
@@ -14,6 +14,6 @@ router.route('/')
 
 router.route('/:receiverId')
     .get(getNotificationsByReceiverCtrl)
-
+    .delete(deleteNotificationsCtrl)
 
 export default router

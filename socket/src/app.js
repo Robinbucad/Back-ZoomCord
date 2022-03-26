@@ -61,14 +61,6 @@ io.on("connection", (socket) => {
     
     })
 
-    socket.on("sendNotification", ({ senderName, receiverName }) => {
-
-        const receiver = getUser(receiverName)
-    
-         io.to(receiver.socketId).emit("getNotification",{
-             senderName:senderName
-         })
-    })
 
  
     //ENVIO DE MENSAJE Y RECIBO MENSAJE
@@ -100,6 +92,7 @@ io.on("connection", (socket) => {
             text: data.text
         })
     })
+
 
     socket.on("callUser", ({ userToCall, signalData, from, name }) => {
         io.to(userToCall).emit("callUser", { signal: signalData, from, name });

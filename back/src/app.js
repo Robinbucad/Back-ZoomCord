@@ -10,7 +10,6 @@ import messagesRouter from './message/messages.routes.js'
 import serverRouter from './servers/servers.router.js'
 import serverMessages from './messageServer/messageServer.router.js'
 import publications from './publicaciones/pub.router.js'
-import notificationsMsg from './notificationMsg/notificationMsg.router.js'
 import notificationsRouter from './notifications/notifications.router.js'
 
 
@@ -41,7 +40,6 @@ app.use('/servers',serverRouter)
 app.use('/servMsg', validateAuth, serverMessages)
 app.use('/publications',validateAuth,publications)
 app.use('/notifications', validateAuth ,notificationsRouter)
-app.use('/notMsg', validateAuth ,notificationsMsg)
 
 app.use('/static',express.static('public-static'))   
 

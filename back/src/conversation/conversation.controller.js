@@ -5,6 +5,7 @@ import { createConv, retreiveConversationById, retrieveConv } from "./conversati
 
 export const conversationCtrl = async(req,res) => {
     const conv = {
+        receiverName:req.body.receiverName,
         members:[req.body.senderId, req.body.receiverId]
     }
     await createConv(conv)

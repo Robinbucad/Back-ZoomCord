@@ -1,13 +1,17 @@
-import { retrieveNotifications, retrieveNotificationsByReceiver } from "./notifications.model.js"
+import { retrievePostById } from "../publicaciones/pub.model.js"
+import {  retrieveNotificationsByReceiver } from "./notifications.model.js"
 
 export const validateNotification = async(req,res,next) => {
-    const senderName = req.body.senderName
-    const notification = await retrieveNotifications()
+    const receiverId = req.body.receiverId
+    const senderUser = req.body.senderName
+    const postId = req.body.postId
+    const post = await retrievePostById(postId)
 
-    if(notification.some(e => e.senderName === senderName)){
-        res.sendStatus(409)
+    
+    if( post.likes.some(e => e === senderUser)){
+        res.status(409)
     }else{
-        next()
         res.status(200)
-}
+        next()
+    }
 }

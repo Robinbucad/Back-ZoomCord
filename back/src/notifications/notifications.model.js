@@ -63,3 +63,19 @@ export const retrieveNotificationsByReceiver = async(receiverId) => {
        await client.close()
     }
 }
+
+export const deleteNotification = async(receiverId) => {
+    try{
+        await client.connect()
+        console.log(receiverId)
+        const db = client.db(DATABASE_NAME);
+        const notsCol = db.collection(COLLECTION_NAME);
+        const query = {receiverId:receiverId}
+        const nots = await notsCol.deleteMany(query)
+        return  nots
+    }catch(err){
+        console.error('Error al borrar usuario', err)
+    }finally{
+       await client.close()
+    }
+}
