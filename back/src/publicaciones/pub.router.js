@@ -1,6 +1,7 @@
 import express from "express";
-import {getPostCtrl,postPubCtrl,getPostByIdCtrl,updateLikeCtrl} from './pub.controller.js'
+import {getPostCtrl,postPubCtrl,getPostByIdCtrl,updateLikeCtrl,delPubCtrl} from './pub.controller.js'
 import { upload } from "../multer/index.js";
+import { deletePostMw } from "./deletePostMiddleware.js";
 
 const router = express.Router()
 
@@ -11,4 +12,5 @@ router.route('/')
 router.route('/:id')
     .get(getPostByIdCtrl)
     .patch(updateLikeCtrl)
+    .delete(deletePostMw,delPubCtrl)
 export default router

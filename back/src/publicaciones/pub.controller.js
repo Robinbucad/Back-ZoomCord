@@ -1,4 +1,4 @@
-import { createPublication, retrievePostById, retrievePubs,setLikes, unsetLikes } from "./pub.model.js"
+import { createPublication, deletePost, retrievePostById, retrievePubs,setLikes, unsetLikes } from "./pub.model.js"
 import { Public } from "../multer/index.js"
 
 export const getPostCtrl = async(req,res) =>{
@@ -47,3 +47,10 @@ export const updateLikeCtrl = async(req,res) => {
    
 }
 
+export const delPubCtrl = async(req,res) => {
+    const {id} = req.params
+    const idUser = req.body.id
+    console.log(idUser)
+    const post = await deletePost(id)
+    res.json(post)
+}

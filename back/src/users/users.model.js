@@ -116,7 +116,7 @@ export const retreiveUsersById = async (id) => {
         const userCol = db.collection(COLLECTION_NAME);
            
         const user = await userCol.findOne({'_id':ObjectId(id)}); 
-        return user ?? undefined;
+        return user ;
     }catch(err){
         console.error('Retrieve users error: ', err);
     }finally {

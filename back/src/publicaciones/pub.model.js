@@ -89,3 +89,20 @@ export const unsetLikes = async (id,username) => {
         await client.close(); 
     }
 };
+
+
+
+export const deletePost = async(id) => {
+    try{
+        await client.connect()
+        const db = client.db(DATABASE_NAME);
+        const pubCol = db.collection(COLLECTION_NAME);
+        const query = {_id:ObjectId(id)}
+        const publications = await pubCol.deleteOne(query)
+        return  publications
+    }catch(err){
+        console.error('Error al borrar usuario', err)
+    }finally{
+       await client.close()
+    }
+}
