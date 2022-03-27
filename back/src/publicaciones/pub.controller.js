@@ -49,8 +49,6 @@ export const updateLikeCtrl = async(req,res) => {
 
 export const delPubCtrl = async(req,res) => {
     const {id} = req.params
-    const idUser = req.body.id
-    console.log(idUser)
     const post = await deletePost(id)
     res.json(post)
 }

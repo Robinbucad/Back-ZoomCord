@@ -2,10 +2,9 @@ import { createConv, retreiveConversationById, retrieveConv } from "./conversati
 
 
 // Controlador que manda el body del mensaje
-
+//receiverName:req.body.receiverName,
 export const conversationCtrl = async(req,res) => {
-    const conv = {
-        receiverName:req.body.receiverName,
+    const conv = {       
         members:[req.body.senderId, req.body.receiverId]
     }
     await createConv(conv)
