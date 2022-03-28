@@ -1,3 +1,4 @@
+import { retreiveUsersById, retrieveUsers } from "../users/users.model.js"
 import { createConv, retreiveConversationById, retrieveConv } from "./conversation.model.js"
 
 
@@ -27,3 +28,16 @@ export const getConversationByIdCtrl = async(req,res) =>{
     else res.sendStatus(404)
 }
 
+export const getConversationsUserCtrl = async(req,res)=> {
+    const {id} = req.params
+    const conversationById = await retreiveConversationById(id)
+    const filter = conversationById.map(e => e.members.find(u => u !== id))
+
+      const listUsers = await Promise.all(
+          filter.map(async e => {
+              return await retreiveUsersById(e)
+          })
+      )
+
+    res.json(listUsers)
+}

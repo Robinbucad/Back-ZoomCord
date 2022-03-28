@@ -51,8 +51,10 @@ export const retreiveConversationById = async (id) => {
         const conver = await converCol.find({"members":id}, opt).toArray(); 
         return conver ?? undefined;
     }catch(err){
-        console.error('Retrieve users error: ', err);
+        console.error('Retrieve conv error: ', err);
     }finally {
         await client.close(); 
     }
 };
+
+//

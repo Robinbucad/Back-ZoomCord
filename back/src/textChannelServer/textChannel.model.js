@@ -47,7 +47,7 @@ export const retreiveChannelsById = async (serverId) => {
         const channel = await textChannelCol.find({"serverId":serverId}, {}).toArray(); 
         return channel ?? undefined;
     }catch(err){
-        console.error('Retrieve users error: ', err);
+        console.error('Retrieve users text error: ', err);
     }finally {
         await client.close(); 
     }

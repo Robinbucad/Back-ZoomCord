@@ -1,5 +1,5 @@
 import express from "express"
-import { conversationCtrl, getConversations, getConversationByIdCtrl} from "./conversation.controller.js"
+import { conversationCtrl, getConversations, getConversationByIdCtrl,getConversationsUserCtrl} from "./conversation.controller.js"
 import { createConversationMiddleware } from "./conversation.middleware.js"
 
 // AQUI CREO LA CONVERSACION
@@ -11,5 +11,8 @@ router.route('/')
     .get(getConversations)
 router.route('/:id')
     .get(getConversationByIdCtrl)
+
+router.route('/list/:id')
+    .get(getConversationsUserCtrl)
 
 export default router
