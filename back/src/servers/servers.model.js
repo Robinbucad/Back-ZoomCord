@@ -50,7 +50,7 @@ export const retrieveServerById = async(id) => {
     }catch(err){
         console.error('Error al recibir servidor', err)
     }finally{
-        await   client.close()
+        await  client.close()
     }
 }
 
@@ -76,7 +76,7 @@ export const pushMemberSever = async(id,userId) => {
     }catch(err){
         console.error('Error al recibir servidor', err)
     }finally{
-        await  client.close()
+        await client.close()
     }
 }
 
@@ -93,7 +93,7 @@ export const retrieveServerByUser = async(id) => {
         const conver = await converServCol.find({"members":id}, opt).toArray(); 
         return conver ?? undefined;
     }catch(err){
-        console.error('Retrieve users error: ', err);
+        console.error('Retrieve conv2 error: ', err);
     }finally {
         await  client.close(); 
     }

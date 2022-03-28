@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUserInfo,updateImgCtrl,updateEmailCtrl, getFriendListCtlr, getUserByIdCtrl,deleteCurrentUserCtrl,getUsersByUsernameCtrl, updateUsernameCtrl,getAllUsersCtrl } from './users.controller.js';
+import { getUserInfo,updateImgCtrl,updateEmailCtrl, getFriendListCtlr, getUserByIdCtrl,deleteCurrentUserCtrl,getUsersByUsernameCtrl, updateUsernameCtrl} from './users.controller.js';
 import { validateUpdateMiddleware } from './users.middleware.js';
 import {upload} from '../multer/index.js'
 
@@ -12,8 +12,6 @@ router.route('/')
 router.route('/friends/:id')
     .get(getFriendListCtlr)
   
-router.route('/list/:id')
-    .get(getAllUsersCtrl)
 
 router.route('/friends/add/:username')
     .get(getUsersByUsernameCtrl)

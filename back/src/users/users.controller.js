@@ -25,25 +25,6 @@ export const getFriendListCtlr = async (req,res) => {
         
         res.json(users)
 } 
-//Prueba
-
-export const getAllUsersCtrl = async(req,res) => {
-    const {id} = req.params
-    const conversationById = await retreiveConversationById(id)
-    const findingConv =conversationById.map(e => e.members.find(u => u !== id))
-
-    const myFunction = async (findingConv) => {
-        const promise = findingConv.map(async (e) => {
-            return {
-                users:await retreiveUsersById(e)
-            }
-        })
-        return Promise.all(promise)
-    }
-    const result = await myFunction(findingConv)
-
-    res.json(result)
-}
 
 //Controlador que obtiene el usuario por ID
 

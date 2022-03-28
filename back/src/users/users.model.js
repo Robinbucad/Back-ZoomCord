@@ -110,15 +110,18 @@ export const retrieveUsers = async() => {
 }
 
 export const retreiveUsersById = async (id) => {
+    const client = new MongoClient(URI)
     try{
         await client.connect(); 
         const db = client.db(DATABASE_NAME); 
         const userCol = db.collection(COLLECTION_NAME);
-           
-        const user = await userCol.findOne({'_id':ObjectId(id)}); 
+        const opts = {
+            projection:{password:0, status:0, email:0, date:0}
+        }
+        const user = await userCol.findOne({'_id':ObjectId(id)},opts); 
         return user ;
     }catch(err){
-        console.error('Retrieve users error: ', err);
+        console.error('Retrieve users by id error: ', err);
     }finally {
         await client.close(); 
     }
@@ -154,7 +157,7 @@ export const retreiveUsersByUsername = async (username) => {
      
         return users ?? undefined;
     }catch(err){
-        console.error('Retrieve users error: ', err);
+        console.error('Retrieve users by username error: ', err);
     }finally {
       await  client.close(); 
     }
@@ -171,7 +174,7 @@ export const patchUserEmail = async (id,email) => {
         const userEmail = await userCol.updateOne({"_id":ObjectId(id)}, {$set:email}); 
         return userEmail ?? undefined;
     }catch(err){
-        console.error('Retrieve users error: ', err);
+        console.error('Patch email error: ', err);
     }finally {
        await client.close(); 
     }
@@ -201,7 +204,7 @@ export const patchImg = async (id,img) => {
         const userEmail = await userCol.updateOne({"_id":ObjectId(id)}, {$set:img}); 
         return userEmail ?? undefined;
     }catch(err){
-        console.error('Retrieve users error: ', err);
+        console.error('Patch img: ', err);
     }finally {
        await client.close(); 
     }

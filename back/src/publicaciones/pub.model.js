@@ -66,7 +66,7 @@ export const setLikes = async (id,username) => {
         const likes = await pubsCol.updateOne(query,opt)
         return likes
     }catch(err){
-        console.error('Retrieve users error: ', err);
+        console.error('Update pub error: ', err);
     }finally {
         await client.close(); 
     }
@@ -84,7 +84,7 @@ export const unsetLikes = async (id,username) => {
         const likes = await pubsCol.updateOne(query,opt)
         return likes
     }catch(err){
-        console.error('Retrieve users error: ', err);
+        console.error('Update pub error: ', err);
     }finally {
         await client.close(); 
     }
