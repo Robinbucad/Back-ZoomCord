@@ -16,7 +16,6 @@ export const postPubCtrl = async (req,res) => {
         username:req.body.username,
         description:req.body.description,
         file:img,
-        //img:req.body.img,
         likes:[]
     }
     await createPublication(publication)

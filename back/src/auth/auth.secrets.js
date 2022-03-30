@@ -1,3 +1,4 @@
+const {SECRET} = process.env
 
 
-export const jwt_secret = 'DISCORD_AUTH'
+export const jwt_secret = `${SECRET}`

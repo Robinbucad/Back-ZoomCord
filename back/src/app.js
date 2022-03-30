@@ -1,4 +1,5 @@
 import express from "express"
+import {} from "dotenv/config";
 import cors from 'cors'
 import http from 'http'
 import {Server} from 'socket.io'
@@ -13,8 +14,10 @@ import publications from './publicaciones/pub.router.js'
 import notificationsRouter from './notifications/notifications.router.js'
 
 
+
+
 const app = express()
-const port = 3001
+const port = process.env.PORT || 3001
 const server = http.createServer(app)
 app.use(cors())
 

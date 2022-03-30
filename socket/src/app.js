@@ -1,4 +1,5 @@
 import express from 'express'
+import {} from "dotenv/config";
 import { Server } from 'socket.io'
 import { createServer } from 'http'
 import cors from 'cors'
@@ -13,7 +14,7 @@ import cors from 'cors'
 
 const app = express()
 app.use(cors())
-const port = 4000
+const port = process.env.PORT || 4000
 const httpServer = createServer()
 
 const io = new Server(httpServer, {
@@ -65,7 +66,8 @@ io.on("connection", (socket) => {
  
     //ENVIO DE MENSAJE Y RECIBO MENSAJE
     socket.on("sendMessage", (data) => {
-
+        console.log(data)
+        // Esto me lo envia las veces de la longitud del array de mensajes
         io.to(data.conversationId).emit("getMessage", { // ENVIAMOS EL MENSAJE AL RECEPTOR
             date: data.date,
             username: data.username,

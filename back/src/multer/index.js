@@ -1,5 +1,5 @@
 import multer from 'multer'
-import __dirname from 'path'
+//import __dirname from 'path'
 
 
 const storageEngine = multer.diskStorage ({
