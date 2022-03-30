@@ -24,7 +24,7 @@ app.use(cors())
 
 const io = new Server(server, {
     cors:{ // Llamo donde voy a abrir la aplicaion para que no salte cords
-        origin:"http://localhost:3000",
+        origin:"https://zoomcord.netlify.app/",
         methods:["GET", "POSTS"],
     }
 })
