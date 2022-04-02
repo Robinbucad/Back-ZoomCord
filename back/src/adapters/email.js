@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
-
+const {EPASS} = process.env
 
 export const sendValidationEmail = async(to,url) => {
     const testAccount = await nodemailer.createTestAccount();
@@ -9,7 +9,7 @@ export const sendValidationEmail = async(to,url) => {
         service: 'gmail',
         auth: {
           user: "bezzk6@gmail.com", 
-          pass: "1122loco", 
+          pass: EPASS, 
         },
       });
 
