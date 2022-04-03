@@ -3,6 +3,7 @@ import { MongoClient } from 'mongodb'
 const {MPASS} = process.env
 
 
+
 const URI = `mongodb+srv://robin:${MPASS}@discord.3po3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 
 const client = new MongoClient(URI);
