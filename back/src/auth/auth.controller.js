@@ -48,7 +48,7 @@ export const validateEmailCtrl = async(req,res) => {
         //exsite token
         await deleteValidationToken(token) // Esto elimina 
         await validateUser(valToken.user) // Esto actualiza
-        res.send(200)
+        res.sendStatus(200)
     }else{
         res.sendStatus(404)
     }

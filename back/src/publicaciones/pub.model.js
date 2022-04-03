@@ -1,6 +1,7 @@
 
 import { MongoClient, ObjectId } from 'mongodb'
 const {MPASS} = process.env
+console.log(MPASS)
 
 const URI = `mongodb+srv://robin:${MPASS}@discord.3po3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 
