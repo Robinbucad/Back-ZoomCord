@@ -16,9 +16,9 @@ import notificationsRouter from './notifications/notifications.router.js'
 
 
 
-const app = express()
+export const app = express()
 const port = process.env.PORT || 3001
-const server = http.createServer(app)
+export const server = http.createServer(app)
 app.use(cors())
 
 
@@ -123,6 +123,9 @@ io.on("connection", (socket) => {
 
 })
 
+app.get('/ping',(req,res) => {
+    res.send('pong')
+})
 
 app.use(express.json())
 app.use(express.urlencoded({extended:'utf-8'}))
@@ -141,4 +144,7 @@ app.use('/static',express.static('public-static'))
 
 
 
-server.listen(port,() => console.log(`Se ha iniciado en el puerto: ${port}`))
+if (process.env.NODE_ENV !== 'test') {
+    server.listen(port, () => console.log(`Listening on port ${port}`))
+  }
+

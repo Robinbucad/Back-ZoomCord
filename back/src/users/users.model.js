@@ -1,12 +1,10 @@
 import { MongoClient, ObjectId } from 'mongodb'
-const {MPASS} = process.env
+const {MONGO_DB_URI} = process.env
+export const client = new MongoClient(MONGO_DB_URI);
 
-
-const URI = `mongodb+srv://robin:${MPASS}@discord.3po3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
-
-const client = new MongoClient(URI);
 const DATABASE_NAME = 'social';
 const COLLECTION_NAME = 'users'
+
 
 export const createUser = async (user) => {
     try {
@@ -112,7 +110,8 @@ export const retrieveUsers = async() => {
 }
 
 export const retreiveUsersById = async (id) => {
-    const client = new MongoClient(URI)
+    const client = new MongoClient(MONGO_DB_URI)
+
     try{
         await client.connect(); 
         const db = client.db(DATABASE_NAME); 
